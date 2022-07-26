@@ -12,7 +12,7 @@ def hello_world():
     cursor.execute("insert into views default values")
     cursor.execute("select count(*) from views")
     conn.commit()
-    return json.dumps({views : cursor.fetchall()[0][0]})
+    return json.dumps({"views" : cursor.fetchall()[0][0]})
 
 if __name__ == '__main__':
     app.run()
