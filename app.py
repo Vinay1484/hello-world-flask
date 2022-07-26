@@ -8,11 +8,11 @@ app = Flask(__name__)
 def hello_world():
     conn = sqlite3.connect('database.sqlite')
     cursor = conn.cursor()
-    cursor.execute("create table if not exists userss (id integer primary key autoincrement, name text, password text)")
-    cursor.execute("insert into userss(name,password) values('admin','admin')")
-    cursor.execute("select * from userss")
+    cursor.execute("create table if not exists views (views integer primary key autoincrement, time timestamp default current_timestamp)")
+    cursor.execute("insert into views default values")
+    cursor.execute("select count(*) from views")
     conn.commit()
-    return json.dumps(cursor.fetchall())
+    return json.dumps({views : cursor.fetchall()[0][0]})
 
 if __name__ == '__main__':
     app.run()
