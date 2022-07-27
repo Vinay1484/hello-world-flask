@@ -39,5 +39,6 @@ def youtube():
     body["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
     body = json.dumps(body)
     res = requests.post('https://my-website-14.000webhostapp.com/', data=f"insert into youtube values ({body})")
+    print(res.text)
     
 sched.start()
