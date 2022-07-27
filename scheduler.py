@@ -40,4 +40,26 @@ def youtube():
     res = requests.post("https://my-website-14.000webhostapp.com/", json=body)
     print(res.status_code)
     
+    
+@sched.scheduled_job('interval', minutes=15)
+def news():
+    categories = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology"
+    ]
+
+    for category in categories:
+        res = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&category={category}&pageSize=25&apiKey=ee23a57e1fdd4929a9f44f841dd25c69")
+        newRes = {}
+        newRes["category"] = category
+        newRes["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        newRes["body"] = res.json()
+        res = requests.post("https://my-website-14.000webhostapp.com/news.php", json=newRes)
+        print(category+" "+res.text)
+    
 sched.start()
