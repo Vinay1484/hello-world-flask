@@ -37,7 +37,7 @@ def youtube():
         items["snippet"]["thumbnails"] = ""
     body["english"] = resJson
     body["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    body = json.dumps(body)
+    body = str(json.dumps(body))
     query = f"insert into youtube values ('{body}')"
     res = requests.post('https://my-website-14.000webhostapp.com/', data=query)
     print(res.text)
