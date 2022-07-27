@@ -9,14 +9,9 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=1)
 def youtube():
-    s = json.dumps({"data": "test"})
-    conn = sqlite3.connect('database.sqlite')
-    cursor = conn.cursor()
-    cursor.execute("create table if not exists youtube (data text)")
-    cursor.execute("insert into youtube values ('{}')".format(s))
-    conn.commit()
-    print(cursor.fetchall())
-    conn.close()
-    print("Done")
+    with open("file.txt", "r+") as f:
+        print(f.read())
+        f.write(time.strftime("%Y-%m-%d %H:%M:%S"))
+        f.close()
 
 sched.start()
