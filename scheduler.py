@@ -7,7 +7,7 @@ import sqlite3
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', minutes=10)
 def youtube():
     res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&videoCategoryId=10&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
     resJson = res.json()
