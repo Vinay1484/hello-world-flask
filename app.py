@@ -5,7 +5,11 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def hello():
+    return "ok"
+
+@app.route('/news', methods=['POST'])
 def news():
     url = request.form["url"]
     lang = request.form["lang"]
