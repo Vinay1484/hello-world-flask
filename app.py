@@ -2,6 +2,7 @@ from flask import Flask, request
 from newspaper import Article
 from googletrans import Translator
 import json
+nltk.download('punkt')
 
 app = Flask(__name__)
 
