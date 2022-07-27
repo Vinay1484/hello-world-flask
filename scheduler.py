@@ -15,6 +15,7 @@ def youtube():
     cursor.execute("create table if not exists youtube (data text)")
     cursor.execute("insert into youtube values ('{}')".format(s))
     conn.commit()
+    conn.close()
     print("Done")
 
 sched.start()
