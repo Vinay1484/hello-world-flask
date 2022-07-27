@@ -2,6 +2,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import json
 import time
 import requests
+import os
 
 sched = BlockingScheduler()
 
@@ -38,6 +39,7 @@ def youtube():
 
     with open("data.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(body))
+        print(os.path.realpath(f.name))
         f.close()
     print("Done")
 
