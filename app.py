@@ -13,6 +13,7 @@ def hello_world():
     cursor.execute("insert into views default values")
     cursor.execute("select data from youtube")
     conn.commit()
+    conn.close()
     return json.dumps(cursor.fetchall())
 
 if __name__ == '__main__':
