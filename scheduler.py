@@ -37,7 +37,7 @@ def youtube():
     body["english"] = resJson
     body["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
 
-    with open("data.json", "w", encoding="utf-8") as f:
+    with open("youtube.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(body))
         print(os.path.realpath(f.name))
         f.close()
