@@ -10,7 +10,7 @@ def hello_world():
     conn = sqlite3.connect('database.sqlite')
     cursor = conn.cursor()
     cursor.execute("create table if not exists views (views integer primary key autoincrement, time timestamp default current_timestamp)")
-    cursor.execute("select data from youtube")
+    cursor.execute("PRAGMA database_list")
     conn.commit()
     conn.close()
     return json.dumps(cursor.fetchall())
