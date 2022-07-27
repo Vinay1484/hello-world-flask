@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     data = {}
-    with open("/app/data.json", "r", encoding="utf-8") as f:
+    with open("youtube.json", "r", encoding="utf-8") as f:
         data = json.loads(f.read())
         f.close()
     conn = sqlite3.connect('database.sqlite')
