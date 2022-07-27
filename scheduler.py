@@ -9,7 +9,7 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=1)
 def youtube():
-    res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&videoCategoryId=10&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
+    res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&vidCategoryId=10&key=AIzatEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
     resJson = res.json()
     body = {}
     for items in resJson["items"]:
