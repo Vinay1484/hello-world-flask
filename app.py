@@ -19,7 +19,7 @@ def news():
         text = article.text
     else:
         text = translator.translate(article.text, dest=lang).text
-    return {"text": text, "keywords": keywords}
+    return {"text": text, "keywords": keywords, "title": article.title, "img_url": article.top_image}
 
 if __name__ == '__main__':
     app.run()
