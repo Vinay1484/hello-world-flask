@@ -3,7 +3,6 @@ import json
 import time
 import requests
 import os
-import sqlite3
 import random
 
 sched = BlockingScheduler()
@@ -52,7 +51,7 @@ def youtube():
         print(res.status_code)
     
     
-@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', minutes=30)
 def news():
     categories = [
     "business",
@@ -76,7 +75,6 @@ def news():
 
     def getNews(category, apiKey):
         global n
-        print(n)
         res = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&category={category}&pageSize=25&apiKey={apiKey}")
         res = res.json()
         if(n < 5):
