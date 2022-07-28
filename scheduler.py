@@ -8,7 +8,7 @@ import random
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=20)
+@sched.scheduled_job('interval', minutes=60)
 def youtube():
     value = 0
     res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&videoCategoryId=10&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
@@ -52,7 +52,7 @@ def youtube():
         print(res.status_code)
     
     
-@sched.scheduled_job('interval', minutes=15)
+@sched.scheduled_job('interval', minutes=1)
 def news():
     categories = [
     "business",
