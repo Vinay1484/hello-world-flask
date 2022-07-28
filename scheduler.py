@@ -4,6 +4,7 @@ import time
 import requests
 import os
 import sqlite3
+import random
 
 sched = BlockingScheduler()
 
@@ -62,14 +63,40 @@ def news():
     "sports",
     "technology"
     ]
+    
+    apiKeys = [
+        "ee23a57e1fdd4929a9f44f841dd25c69",
+        "da484a6c59e04f73ad537ed065b0ee72",
+        "ce01e1789e304cfa9092d2c83bb634a0",
+        "c388c3135e4741dd9f83ffc330c11fe1",
+        "b1c3b0b783c5457bb3441359edb47996",
+        "5075193ec6e6477f81db61fd5da9adf7"
+    ]
+    global n
+
+    def getNews(category, apiKey):
+        global n
+        print(n)
+        res = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&category={category}&pageSize=25&apiKey={apiKey}")
+        res = res.json()
+        if(n < 5):
+            if(res["status"] == "ok"):
+                return res
+            else:
+                n += 1
+                apiKey = random.choice(apiKeys)
+                return getNews(category, apiKey)
+        return "null"
 
     for category in categories:
-        res = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&category={category}&pageSize=25&apiKey=ee23a57e1fdd4929a9f44f841dd25c69")
-        newRes = {}
-        newRes["category"] = category
-        newRes["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
-        newRes["body"] = res.json()
-        res = requests.post("https://my-website-14.000webhostapp.com/news.php", json=newRes)
-        print(category+" "+res.text)
+        n = 0
+        r = getNews(category, random.choice(apiKeys))
+        if(r != "null"):
+            newRes = {}
+            newRes["category"] = category
+            newRes["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
+            newRes["body"] = r
+            res = requests.post("https://my-website-14.000webhostapp.com/news.php", json=newRes)
+            print(category+" "+str(n)+" "+res.text)
     
 sched.start()
