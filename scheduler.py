@@ -9,8 +9,9 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=60)
 def youtube():
+    apiKey = "AIzaSyACTx3M8i3Jo6lxu9vH1GiIql-NWOaHqnk"
     value = 0
-    res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&videoCategoryId=10&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
+    res = requests.get("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=IN&videoCategoryId=10&key={}".format(apiKey))
     resJson = res.json()
     body = {}
     if("error" not in resJson):
@@ -21,7 +22,7 @@ def youtube():
             items["snippet"]["localized"] = ""
         value += 1
     body["trending"] = resJson
-    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20telugu%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=medium&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
+    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20telugu%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=short&key={}".format(apiKey))
     resJson = res.json()
     if("error" not in resJson):
         for items in resJson["items"]:
@@ -29,7 +30,7 @@ def youtube():
             items["snippet"]["thumbnails"] = ""
         value += 1
     body["telugu"] = resJson
-    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20hindi%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=medium&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
+    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20hindi%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=short&key={}".format(apiKey))
     resJson = res.json()
     if("error" not in resJson):
         for items in resJson["items"]:
@@ -37,7 +38,7 @@ def youtube():
             items["snippet"]["thumbnails"] = ""
         value += 1
     body["hindi"] = resJson
-    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20english%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=medium&key=AIzaSyCstEcJGLLkUkilNnRAy4CsRfxfqgVH3R4")
+    res = requests.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=top%20english%20songs&regionCode=IN&type=video&videoCategoryId=10&videoDuration=short&key={}".format(apiKey))
     resJson = res.json()
     if("error" not in resJson):
         for items in resJson["items"]:
