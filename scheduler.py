@@ -87,10 +87,40 @@ def news():
                 return getNews(category, apiKey)
         return "null"
 
+    def sendNotification(data):
+        res = requests.post("https://fcm.googleapis.com/fcm/send",json=data,headers={
+            "Content-Type":"application/json",
+            "Authorization":"key=AAAA6-dg9IQ:APA91bG5TWtWvlZgkN59KK5NRypsy76IBRHftGSyLk2og9x37a5JrExzuP4AAaVwEHkZ_u9Ct1iZxQMAQ_XB1PE8ZzqgbFRWTf2eklz5Sh-EdyFSgtbRSvkuElG3Z3ZFTkS9_CCu8rFM"
+        })
+        print(res.content)
+
     for category in categories:
         n = 0
+        l1 = []
+        l2 = []
         r = getNews(category, random.choice(apiKeys))
         if(r != "null"):
+            prevRes = requests.get(f"https://my-website-14.000webhostapp.com/{category}.txt").json()
+            prevRes = prevRes["body"]["articles"]
+            for obj in prevRes:
+                l1.append(obj["title"])
+            newRes = r["articles"]
+            for obj in newRes:
+                l2.append(obj["title"])
+            if(l1!=l2):
+                for i in range(1):
+                    data = {}
+                    data["to"] = f"/topics/{category}"
+                    data["data"] = {
+                        "body":newRes[i]["description"] if newRes[i]["description"] is not None else "New news available",
+                        "title":newRes[i]["title"] if newRes[i]["title"] is not None else "New news available",
+                        "image":newRes[i]["urlToImage"] if newRes[i]["urlToImage"] is not None else "https://thumbs.dreamstime.com/b/vector-illustration-breaking-news-live-banner-glowing-world-map-business-interface-background-cool-178140832.jpg",
+                        "url":newRes[i]["url"],
+                        "author":newRes[i]["author"] if newRes[i]["author"] is not None else "News App",
+                        "date":newRes[i]["publishedAt"] if newRes[i]["publishedAt"] is not None else ""
+                    }
+                    sendNotification(data)
+
             newRes = {}
             newRes["category"] = category
             newRes["time"] = time.strftime("%Y-%m-%d %H:%M:%S")
