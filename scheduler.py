@@ -119,6 +119,15 @@ def news():
                         "author":newRes[i]["author"] if newRes[i]["author"] is not None else "News App",
                         "date":newRes[i]["publishedAt"] if newRes[i]["publishedAt"] is not None else ""
                     }
+                    data["notification"] = {
+                        "body":newRes[i]["description"] if newRes[i]["description"] is not None else "New news available",
+                        "title":newRes[i]["title"] if newRes[i]["title"] is not None else "New news available",
+                    },
+                    data["android"] = {
+                        "notification":{
+                                "image":newRes[i]["urlToImage"] if newRes[i]["urlToImage"] is not None else "https://thumbs.dreamstime.com/b/vector-illustration-breaking-news-live-banner-glowing-world-map-business-interface-background-cool-178140832.jpg"
+                                }
+                    },
                     sendNotification(data)
 
             newRes = {}
