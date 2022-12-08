@@ -1,0 +1,20 @@
+{
+    "name": "hello-world-flask",
+    "version": "1.0.0",
+    "description": "",
+   "scripts": {
+      "build": "echo \"No build specified\" && exit 1",
+       "test": "echo \"No test specified\" && exit 1",
+        "start": "python app.py"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/king1484/hello-world-flask.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/king1484/hello-world-flask/issues"
+    },
+    "homepage": "https://github.com/king1484/hello-world-flask#readme"
+}
